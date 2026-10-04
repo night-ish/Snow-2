@@ -41,3 +41,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		
 	move_and_slide()
+
+func _on_area_2d_body_entered(body: Namer) -> void:
+	set_physics_process(false)
+	animated_sprite.stop()

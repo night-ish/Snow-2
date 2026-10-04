@@ -2,7 +2,6 @@ extends Area2D
 @onready var player = $"../Player"
 
 func _on_body_entered(body: Namer) -> void:
-	print("fall1")
 	$Timer1.start()
 	
 func _on_timer_1_timeout() -> void:

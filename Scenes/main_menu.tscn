@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://dhkrn1oviggcg"]
 
 [ext_resource type="FontFile" uid="uid://tyy231s087l8" path="res://Assets/Pixellari.ttf" id="1_28flt"]
-[ext_resource type="Script" uid="uid://dlfw8v5io8o6h" path="res://Scenes/button_manager.gd" id="1_48xlc"]
+[ext_resource type="Texture2D" uid="uid://boxd6yqygyfyh" path="res://Assets/demo02_PixelSky_layer01.png" id="1_n45e2"]
+[ext_resource type="Script" uid="uid://bdq0yhwv3mmod" path="res://Scripts/main_menu.gd" id="1_opfnp"]
+[ext_resource type="Texture2D" uid="uid://dtj1n13cghpmy" path="res://Assets/demo02_PixelSky_layer02.png" id="2_opfnp"]
+[ext_resource type="Texture2D" uid="uid://d25gfiixwsl3j" path="res://Assets/demo02_PixelSky_layer03.png" id="3_cp0ys"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62yky"]
 bg_color = Color(0.2625108, 0.3592981, 0.5488477, 1)
@@ -9,18 +12,58 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48xlc"]
+bg_color = Color(0.19215687, 0.27450982, 0.42745098, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ehe0"]
+bg_color = Color(0.23584545, 0.3304836, 0.5060142, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+shadow_size = 10
 
 [node name="Main Menu" type="Control" unique_id=1241714796]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_opfnp")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1748315072]
+modulate = Color(0.41568628, 0.5254902, 0.7294118, 1)
+texture_filter = 1
+scale = Vector2(5, 5)
+
+[node name="Demo02PixelSkyLayer01" type="Sprite2D" parent="Area2D" unique_id=1168843181]
+texture = ExtResource("1_n45e2")
+
+[node name="Demo02PixelSkyLayer02" type="Sprite2D" parent="Area2D" unique_id=54484150]
+texture = ExtResource("2_opfnp")
+
+[node name="Demo02PixelSkyLayer03" type="Sprite2D" parent="Area2D" unique_id=354869418]
+texture = ExtResource("3_cp0ys")
 
 [node name="Button manager" type="Control" parent="." unique_id=1330650741]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("1_48xlc")
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+grow_vertical = 2
 
-[node name="Button" type="Button" parent="Button manager" unique_id=1488098330]
+[node name="Start" type="Button" parent="Button manager" unique_id=1488098330]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -28,14 +71,66 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 398.5
-offset_top = 217.0
-offset_right = 713.0
-offset_bottom = 291.0
+offset_left = -157.25
+offset_top = 1.0
+offset_right = 157.25
+offset_bottom = 75.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("1_28flt")
 theme_override_font_sizes/font_size = 48
 theme_override_styles/normal = SubResource("StyleBoxFlat_62yky")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_48xlc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1ehe0")
 text = "Start
 "
+
+[node name="Quit" type="Button" parent="Button manager" unique_id=173796174]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -157.25
+offset_top = 99.0
+offset_right = 157.25
+offset_bottom = 173.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_28flt")
+theme_override_font_sizes/font_size = 48
+theme_override_styles/normal = SubResource("StyleBoxFlat_62yky")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_48xlc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1ehe0")
+text = "Quit
+
+"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=6464329]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = -132.0
+offset_right = 16.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[font=Assets/Pixellari.ttf] [font_size=64]Adventure on
+[font_size=96][wave]Snowland[/wave]
+"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+autowrap_trim_flags = 0
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Button manager/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Button manager/Quit" to="." method="_on_quit_pressed"]

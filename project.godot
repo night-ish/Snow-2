@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="SV2"
-run/main_scene="uid://crxjrbrov0bgh"
+run/main_scene="uid://dhkrn1oviggcg"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -48,3 +48,4 @@ up={
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+environment/defaults/default_clear_color=Color(0.09411765, 0.13725491, 0.22352941, 1)

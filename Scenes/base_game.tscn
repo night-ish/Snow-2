@@ -6,8 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://b71ws6dikt61v" path="res://Assets/pixil-layer-Background-9.png.png" id="3_g2637"]
 [ext_resource type="Texture2D" uid="uid://cw5up2ivjrnnp" path="res://Assets/pixil-layer-Background-1.png.png" id="4_rj7e3"]
 [ext_resource type="Texture2D" uid="uid://8bs53axhwvja" path="res://Assets/pixil-layer-Background-2.png.png" id="5_kj5de"]
+[ext_resource type="Texture2D" uid="uid://boxd6yqygyfyh" path="res://Assets/demo02_PixelSky_layer01.png" id="6_u41ag"]
+[ext_resource type="Texture2D" uid="uid://dtj1n13cghpmy" path="res://Assets/demo02_PixelSky_layer02.png" id="7_adose"]
 [ext_resource type="Script" uid="uid://bgha6ujoyiukw" path="res://Scripts/fall_1.gd" id="7_kj5de"]
+[ext_resource type="Texture2D" uid="uid://d25gfiixwsl3j" path="res://Assets/demo02_PixelSky_layer03.png" id="8_l1sy6"]
 [ext_resource type="Script" uid="uid://bglvxjprgh1am" path="res://Scripts/fall_2.gd" id="8_r1yhm"]
+[ext_resource type="Script" uid="uid://d3ws8wmoy2qah" path="res://Scripts/area_2d.gd" id="12_adose"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4kxuq"]
 size = Vector2(15.999999, 25.428577)
@@ -381,12 +385,22 @@ size = Vector2(2582, 89)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_84h3i"]
 size = Vector2(7092, 89)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mti6b"]
+size = Vector2(82, 818)
+
 [node name="Base Game" type="Node" unique_id=2088143303]
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1738810669]
-position = Vector2(3106, -285.00006)
+position = Vector2(-703.9995, -104.000015)
 scale = Vector2(3.5, 3.5)
 script = ExtResource("1_mwygd")
+
+[node name="Parallax2D" type="Parallax2D" parent="Player" unique_id=278148175]
+modulate = Color(0.41568628, 0.5254902, 0.7294118, 1)
+z_index = -3
+texture_filter = 1
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(240, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1593812548]
 position = Vector2(-2.3841858e-06, 0.14285631)
@@ -403,6 +417,22 @@ frame_progress = 0.7570543
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=1230445572]
 offset = Vector2(0, -50)
 limit_bottom = 500
+
+[node name="bg" type="Node2D" parent="Player/Camera2D" unique_id=385264956]
+modulate = Color(0.41568628, 0.5254902, 0.7294118, 1)
+z_index = -11
+texture_filter = 1
+position = Vector2(0, -15)
+scale = Vector2(1.4, 1.4)
+
+[node name="Demo02PixelSkyLayer01" type="Sprite2D" parent="Player/Camera2D/bg" unique_id=856773921]
+texture = ExtResource("6_u41ag")
+
+[node name="Demo02PixelSkyLayer02" type="Sprite2D" parent="Player/Camera2D/bg" unique_id=1657173450]
+texture = ExtResource("7_adose")
+
+[node name="Demo02PixelSkyLayer03" type="Sprite2D" parent="Player/Camera2D/bg" unique_id=253184925]
+texture = ExtResource("8_l1sy6")
 
 [node name="Base Layer" type="TileMapLayer" parent="." unique_id=1779037649]
 texture_filter = 1
@@ -441,7 +471,47 @@ position = Vector2(6054, -374)
 [node name="Timer2" type="Timer" parent="Fall2" unique_id=213916798]
 wait_time = 2.0
 
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1497421623]
+z_index = -3
+texture_filter = 1
+offset_left = -1105.0
+offset_top = -217.0
+offset_right = -631.0
+offset_bottom = -121.0
+bbcode_enabled = true
+text = "[center][font_size=32
+][font=Assets/Pixellari.ttf]A / Left Arrow  = go left
+D / Right Arrow  = go right
+W / Up Arrow / Space = jump"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=833597539]
+script = ExtResource("12_adose")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2857482]
+position = Vector2(19288, -2493)
+shape = SubResource("RectangleShape2D_mti6b")
+
+[node name="End" type="Timer" parent="Area2D" unique_id=1914128640]
+wait_time = 3.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Area2D" unique_id=851343101]
+offset_left = 19282.0
+offset_top = -2263.0
+offset_right = 19630.0
+offset_bottom = -2223.0
+bbcode_enabled = true
+text = "[font_size=32
+][font=Assets/Pixellari.ttf] I think I'll rest for now."
+fit_content = true
+scroll_active = false
+
 [connection signal="body_entered" from="Fall1" to="Fall1" method="_on_body_entered"]
 [connection signal="timeout" from="Fall1/Timer1" to="Fall1" method="_on_timer_1_timeout"]
 [connection signal="body_entered" from="Fall2" to="Fall2" method="_on_body_entered"]
 [connection signal="timeout" from="Fall2/Timer2" to="Fall2" method="_on_timer_2_timeout"]
+[connection signal="body_entered" from="Area2D" to="Player" method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="timeout" from="Area2D/End" to="Area2D" method="_on_end_timeout"]
